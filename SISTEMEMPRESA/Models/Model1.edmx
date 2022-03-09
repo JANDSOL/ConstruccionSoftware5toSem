@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SISTEMAEMPRESAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SEGDEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IdSegDepartamento" />
+          </Key>
+          <Property Name="IdSegDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="10" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEGMODULO">
+          <Key>
+            <PropertyRef Name="IdSegModulo" />
+          </Key>
+          <Property Name="IdSegModulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detalle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="10" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEGOPERACION">
+          <Key>
+            <PropertyRef Name="IdSegOperacion" />
+          </Key>
+          <Property Name="IdSegOperacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSegModulo" Type="int" />
+          <Property Name="detalle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="100" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEGROL">
+          <Key>
+            <PropertyRef Name="IdSegRol" />
+          </Key>
+          <Property Name="IdSegRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detalle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="10" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEGROLOPERACION">
+          <Key>
+            <PropertyRef Name="IdSegRolOperacion" />
+          </Key>
+          <Property Name="IdSegRolOperacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSegModulo" Type="int" />
+          <Property Name="IdSegRol" Type="int" />
+          <Property Name="IdSegOperacion" Type="int" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="10" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEGUSUARIOSISTEMA">
+          <Key>
+            <PropertyRef Name="IdSegUsuarioSistema" />
+          </Key>
+          <Property Name="IdSegUsuarioSistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSegDepartamento" Type="int" />
+          <Property Name="IdSegRol" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UsuarioSistema" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="10" />
+          <Property Name="FechaIngreso" Type="date" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__SEGOPERAC__IdSeg__300424B4">
+          <End Role="SEGMODULO" Type="Self.SEGMODULO" Multiplicity="0..1" />
+          <End Role="SEGOPERACION" Type="Self.SEGOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGMODULO">
+              <PropertyRef Name="IdSegModulo" />
+            </Principal>
+            <Dependent Role="SEGOPERACION">
+              <PropertyRef Name="IdSegModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__30F848ED">
+          <End Role="SEGMODULO" Type="Self.SEGMODULO" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGMODULO">
+              <PropertyRef Name="IdSegModulo" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__31EC6D26">
+          <End Role="SEGROL" Type="Self.SEGROL" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGROL">
+              <PropertyRef Name="IdSegRol" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__32E0915F">
+          <End Role="SEGOPERACION" Type="Self.SEGOPERACION" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGOPERACION">
+              <PropertyRef Name="IdSegOperacion" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegOperacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGUSUARI__IdSeg__33D4B598">
+          <End Role="SEGDEPARTAMENTO" Type="Self.SEGDEPARTAMENTO" Multiplicity="0..1" />
+          <End Role="SEGUSUARIOSISTEMA" Type="Self.SEGUSUARIOSISTEMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGDEPARTAMENTO">
+              <PropertyRef Name="IdSegDepartamento" />
+            </Principal>
+            <Dependent Role="SEGUSUARIOSISTEMA">
+              <PropertyRef Name="IdSegDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGUSUARI__IdSeg__34C8D9D1">
+          <End Role="SEGROL" Type="Self.SEGROL" Multiplicity="0..1" />
+          <End Role="SEGUSUARIOSISTEMA" Type="Self.SEGUSUARIOSISTEMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGROL">
+              <PropertyRef Name="IdSegRol" />
+            </Principal>
+            <Dependent Role="SEGUSUARIOSISTEMA">
+              <PropertyRef Name="IdSegRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SISTEMAEMPRESAModelStoreContainer">
+          <EntitySet Name="SEGDEPARTAMENTO" EntityType="Self.SEGDEPARTAMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGMODULO" EntityType="Self.SEGMODULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGOPERACION" EntityType="Self.SEGOPERACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGROL" EntityType="Self.SEGROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGROLOPERACION" EntityType="Self.SEGROLOPERACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEGUSUARIOSISTEMA" EntityType="Self.SEGUSUARIOSISTEMA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__SEGOPERAC__IdSeg__300424B4" Association="Self.FK__SEGOPERAC__IdSeg__300424B4">
+            <End Role="SEGMODULO" EntitySet="SEGMODULO" />
+            <End Role="SEGOPERACION" EntitySet="SEGOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__30F848ED" Association="Self.FK__SEGROLOPE__IdSeg__30F848ED">
+            <End Role="SEGMODULO" EntitySet="SEGMODULO" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__31EC6D26" Association="Self.FK__SEGROLOPE__IdSeg__31EC6D26">
+            <End Role="SEGROL" EntitySet="SEGROL" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__32E0915F" Association="Self.FK__SEGROLOPE__IdSeg__32E0915F">
+            <End Role="SEGOPERACION" EntitySet="SEGOPERACION" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGUSUARI__IdSeg__33D4B598" Association="Self.FK__SEGUSUARI__IdSeg__33D4B598">
+            <End Role="SEGDEPARTAMENTO" EntitySet="SEGDEPARTAMENTO" />
+            <End Role="SEGUSUARIOSISTEMA" EntitySet="SEGUSUARIOSISTEMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGUSUARI__IdSeg__34C8D9D1" Association="Self.FK__SEGUSUARI__IdSeg__34C8D9D1">
+            <End Role="SEGROL" EntitySet="SEGROL" />
+            <End Role="SEGUSUARIOSISTEMA" EntitySet="SEGUSUARIOSISTEMA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SISTEMAEMPRESAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SEGDEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IdSegDepartamento" />
+          </Key>
+          <Property Name="IdSegDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGUSUARIOSISTEMA" Relationship="Self.FK__SEGUSUARI__IdSeg__286302EC" FromRole="SEGDEPARTAMENTO" ToRole="SEGUSUARIOSISTEMA" />
+        </EntityType>
+        <EntityType Name="SEGMODULO">
+          <Key>
+            <PropertyRef Name="IdSegModulo" />
+          </Key>
+          <Property Name="IdSegModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGOPERACION" Relationship="Self.FK__SEGOPERAC__IdSeg__2E1BDC42" FromRole="SEGMODULO" ToRole="SEGOPERACION" />
+          <NavigationProperty Name="SEGROLOPERACION" Relationship="Self.FK__SEGROLOPE__IdSeg__30F848ED" FromRole="SEGMODULO" ToRole="SEGROLOPERACION" />
+        </EntityType>
+        <EntityType Name="SEGOPERACION">
+          <Key>
+            <PropertyRef Name="IdSegOperacion" />
+          </Key>
+          <Property Name="IdSegOperacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSegModulo" Type="Int32" />
+          <Property Name="detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGMODULO" Relationship="Self.FK__SEGOPERAC__IdSeg__2E1BDC42" FromRole="SEGOPERACION" ToRole="SEGMODULO" />
+          <NavigationProperty Name="SEGROLOPERACION" Relationship="Self.FK__SEGROLOPE__IdSeg__32E0915F" FromRole="SEGOPERACION" ToRole="SEGROLOPERACION" />
+        </EntityType>
+        <EntityType Name="SEGROL">
+          <Key>
+            <PropertyRef Name="IdSegRol" />
+          </Key>
+          <Property Name="IdSegRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGROLOPERACION" Relationship="Self.FK__SEGROLOPE__IdSeg__31EC6D26" FromRole="SEGROL" ToRole="SEGROLOPERACION" />
+          <NavigationProperty Name="SEGUSUARIOSISTEMA" Relationship="Self.FK__SEGUSUARI__IdSeg__29572725" FromRole="SEGROL" ToRole="SEGUSUARIOSISTEMA" />
+        </EntityType>
+        <EntityType Name="SEGROLOPERACION">
+          <Key>
+            <PropertyRef Name="IdSegRolOperacion" />
+          </Key>
+          <Property Name="IdSegRolOperacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSegModulo" Type="Int32" />
+          <Property Name="IdSegRol" Type="Int32" />
+          <Property Name="IdSegOperacion" Type="Int32" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGMODULO" Relationship="Self.FK__SEGROLOPE__IdSeg__30F848ED" FromRole="SEGROLOPERACION" ToRole="SEGMODULO" />
+          <NavigationProperty Name="SEGOPERACION" Relationship="Self.FK__SEGROLOPE__IdSeg__32E0915F" FromRole="SEGROLOPERACION" ToRole="SEGOPERACION" />
+          <NavigationProperty Name="SEGROL" Relationship="Self.FK__SEGROLOPE__IdSeg__31EC6D26" FromRole="SEGROLOPERACION" ToRole="SEGROL" />
+        </EntityType>
+        <EntityType Name="SEGUSUARIOSISTEMA">
+          <Key>
+            <PropertyRef Name="IdSegUsuarioSistema" />
+          </Key>
+          <Property Name="IdSegUsuarioSistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSegDepartamento" Type="Int32" />
+          <Property Name="IdSegRol" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioSistema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SEGDEPARTAMENTO" Relationship="Self.FK__SEGUSUARI__IdSeg__286302EC" FromRole="SEGUSUARIOSISTEMA" ToRole="SEGDEPARTAMENTO" />
+          <NavigationProperty Name="SEGROL" Relationship="Self.FK__SEGUSUARI__IdSeg__29572725" FromRole="SEGUSUARIOSISTEMA" ToRole="SEGROL" />
+        </EntityType>
+        <Association Name="FK__SEGUSUARI__IdSeg__286302EC">
+          <End Role="SEGDEPARTAMENTO" Type="Self.SEGDEPARTAMENTO" Multiplicity="0..1" />
+          <End Role="SEGUSUARIOSISTEMA" Type="Self.SEGUSUARIOSISTEMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGDEPARTAMENTO">
+              <PropertyRef Name="IdSegDepartamento" />
+            </Principal>
+            <Dependent Role="SEGUSUARIOSISTEMA">
+              <PropertyRef Name="IdSegDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGOPERAC__IdSeg__2E1BDC42">
+          <End Role="SEGMODULO" Type="Self.SEGMODULO" Multiplicity="0..1" />
+          <End Role="SEGOPERACION" Type="Self.SEGOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGMODULO">
+              <PropertyRef Name="IdSegModulo" />
+            </Principal>
+            <Dependent Role="SEGOPERACION">
+              <PropertyRef Name="IdSegModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__30F848ED">
+          <End Role="SEGMODULO" Type="Self.SEGMODULO" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGMODULO">
+              <PropertyRef Name="IdSegModulo" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__32E0915F">
+          <End Role="SEGOPERACION" Type="Self.SEGOPERACION" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGOPERACION">
+              <PropertyRef Name="IdSegOperacion" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegOperacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGROLOPE__IdSeg__31EC6D26">
+          <End Role="SEGROL" Type="Self.SEGROL" Multiplicity="0..1" />
+          <End Role="SEGROLOPERACION" Type="Self.SEGROLOPERACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGROL">
+              <PropertyRef Name="IdSegRol" />
+            </Principal>
+            <Dependent Role="SEGROLOPERACION">
+              <PropertyRef Name="IdSegRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SEGUSUARI__IdSeg__29572725">
+          <End Role="SEGROL" Type="Self.SEGROL" Multiplicity="0..1" />
+          <End Role="SEGUSUARIOSISTEMA" Type="Self.SEGUSUARIOSISTEMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEGROL">
+              <PropertyRef Name="IdSegRol" />
+            </Principal>
+            <Dependent Role="SEGUSUARIOSISTEMA">
+              <PropertyRef Name="IdSegRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConnDbSISTEMAEMPRESA" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SEGDEPARTAMENTO" EntityType="Self.SEGDEPARTAMENTO" />
+          <EntitySet Name="SEGMODULO" EntityType="Self.SEGMODULO" />
+          <EntitySet Name="SEGOPERACION" EntityType="Self.SEGOPERACION" />
+          <EntitySet Name="SEGROL" EntityType="Self.SEGROL" />
+          <EntitySet Name="SEGROLOPERACION" EntityType="Self.SEGROLOPERACION" />
+          <EntitySet Name="SEGUSUARIOSISTEMA" EntityType="Self.SEGUSUARIOSISTEMA" />
+          <AssociationSet Name="FK__SEGUSUARI__IdSeg__286302EC" Association="Self.FK__SEGUSUARI__IdSeg__286302EC">
+            <End Role="SEGDEPARTAMENTO" EntitySet="SEGDEPARTAMENTO" />
+            <End Role="SEGUSUARIOSISTEMA" EntitySet="SEGUSUARIOSISTEMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGOPERAC__IdSeg__2E1BDC42" Association="Self.FK__SEGOPERAC__IdSeg__2E1BDC42">
+            <End Role="SEGMODULO" EntitySet="SEGMODULO" />
+            <End Role="SEGOPERACION" EntitySet="SEGOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__30F848ED" Association="Self.FK__SEGROLOPE__IdSeg__30F848ED">
+            <End Role="SEGMODULO" EntitySet="SEGMODULO" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__32E0915F" Association="Self.FK__SEGROLOPE__IdSeg__32E0915F">
+            <End Role="SEGOPERACION" EntitySet="SEGOPERACION" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGROLOPE__IdSeg__31EC6D26" Association="Self.FK__SEGROLOPE__IdSeg__31EC6D26">
+            <End Role="SEGROL" EntitySet="SEGROL" />
+            <End Role="SEGROLOPERACION" EntitySet="SEGROLOPERACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SEGUSUARI__IdSeg__29572725" Association="Self.FK__SEGUSUARI__IdSeg__29572725">
+            <End Role="SEGROL" EntitySet="SEGROL" />
+            <End Role="SEGUSUARIOSISTEMA" EntitySet="SEGUSUARIOSISTEMA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SISTEMAEMPRESAModelStoreContainer" CdmEntityContainer="ConnDbSISTEMAEMPRESA">
+          <EntitySetMapping Name="SEGDEPARTAMENTO">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGDEPARTAMENTO">
+              <MappingFragment StoreEntitySet="SEGDEPARTAMENTO">
+                <ScalarProperty Name="IdSegDepartamento" ColumnName="IdSegDepartamento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGMODULO">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGMODULO">
+              <MappingFragment StoreEntitySet="SEGMODULO">
+                <ScalarProperty Name="IdSegModulo" ColumnName="IdSegModulo" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGOPERACION">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGOPERACION">
+              <MappingFragment StoreEntitySet="SEGOPERACION">
+                <ScalarProperty Name="IdSegOperacion" ColumnName="IdSegOperacion" />
+                <ScalarProperty Name="IdSegModulo" ColumnName="IdSegModulo" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGROL">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGROL">
+              <MappingFragment StoreEntitySet="SEGROL">
+                <ScalarProperty Name="IdSegRol" ColumnName="IdSegRol" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGROLOPERACION">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGROLOPERACION">
+              <MappingFragment StoreEntitySet="SEGROLOPERACION">
+                <ScalarProperty Name="IdSegRolOperacion" ColumnName="IdSegRolOperacion" />
+                <ScalarProperty Name="IdSegModulo" ColumnName="IdSegModulo" />
+                <ScalarProperty Name="IdSegRol" ColumnName="IdSegRol" />
+                <ScalarProperty Name="IdSegOperacion" ColumnName="IdSegOperacion" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEGUSUARIOSISTEMA">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.SEGUSUARIOSISTEMA">
+              <MappingFragment StoreEntitySet="SEGUSUARIOSISTEMA">
+                <ScalarProperty Name="IdSegUsuarioSistema" ColumnName="IdSegUsuarioSistema" />
+                <ScalarProperty Name="IdSegDepartamento" ColumnName="IdSegDepartamento" />
+                <ScalarProperty Name="IdSegRol" ColumnName="IdSegRol" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="UsuarioSistema" ColumnName="UsuarioSistema" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
