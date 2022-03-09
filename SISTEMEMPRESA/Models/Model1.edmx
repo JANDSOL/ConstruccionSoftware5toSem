@@ -5,6 +5,59 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SISTEMAEMPRESAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CNTBPLANDECUENTA">
+          <Key>
+            <PropertyRef Name="IdCntbPlanDeCuenta" />
+          </Key>
+          <Property Name="IdCntbPlanDeCuenta" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="smallint" Nullable="false" />
+          <Property Name="detalle" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="naturaleza" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="CNTBREGCABECERACONT">
+          <Key>
+            <PropertyRef Name="IdCntbRegCabeceraCont" />
+          </Key>
+          <Property Name="IdCntbRegCabeceraCont" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="smallint" Nullable="false" />
+          <Property Name="NombreLote" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TotalDebe" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="TotalHaber" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="EstadoContable" Type="varchar" MaxLength="1" />
+          <Property Name="observacion" Type="varchar" MaxLength="200" />
+          <Property Name="estado" Type="varchar" MaxLength="1" />
+          <Property Name="UsuarioSistema" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="CNTBREGDETALLECONT">
+          <Key>
+            <PropertyRef Name="IdCntbRegDetalleCont" />
+          </Key>
+          <Property Name="IdCntbRegDetalleCont" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodo" Type="smallint" Nullable="false" />
+          <Property Name="IdCntbRegCabeceraCont" Type="int" />
+          <Property Name="SecuenciaDetalle" Type="int" Nullable="false" />
+          <Property Name="IdCntbPlanDeCuenta" Type="int" />
+          <Property Name="GlosaContable" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaContable" Type="date" Nullable="false" />
+          <Property Name="afectacion" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="1" />
+          <Property Name="UsuarioSistema" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="CNTBSALDOCONTABLE">
+          <Key>
+            <PropertyRef Name="IdCntbSaldoContable" />
+          </Key>
+          <Property Name="IdCntbSaldoContable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCntbRegDetalleCont" Type="int" />
+          <Property Name="periodo" Type="smallint" Nullable="false" />
+          <Property Name="NumeroLote" Type="int" Nullable="false" />
+          <Property Name="CuentaContable" Type="int" Nullable="false" />
+          <Property Name="SaldoContableDebe" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="SaldoContableHaber" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="estado" Type="varchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="SEGDEPARTAMENTO">
           <Key>
             <PropertyRef Name="IdSegDepartamento" />
@@ -83,6 +136,42 @@
           <Property Name="UsuarioModificacion" Type="varchar" MaxLength="10" />
           <Property Name="FechaModificacion" Type="date" Nullable="false" />
         </EntityType>
+        <Association Name="FK__CNTBREGDE__IdCnt__5535A963">
+          <End Role="CNTBREGCABECERACONT" Type="Self.CNTBREGCABECERACONT" Multiplicity="0..1" />
+          <End Role="CNTBREGDETALLECONT" Type="Self.CNTBREGDETALLECONT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBREGCABECERACONT">
+              <PropertyRef Name="IdCntbRegCabeceraCont" />
+            </Principal>
+            <Dependent Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbRegCabeceraCont" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CNTBREGDE__IdCnt__5629CD9C">
+          <End Role="CNTBPLANDECUENTA" Type="Self.CNTBPLANDECUENTA" Multiplicity="0..1" />
+          <End Role="CNTBREGDETALLECONT" Type="Self.CNTBREGDETALLECONT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBPLANDECUENTA">
+              <PropertyRef Name="IdCntbPlanDeCuenta" />
+            </Principal>
+            <Dependent Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbPlanDeCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CNTBSALDO__IdCnt__5CD6CB2B">
+          <End Role="CNTBREGDETALLECONT" Type="Self.CNTBREGDETALLECONT" Multiplicity="0..1" />
+          <End Role="CNTBSALDOCONTABLE" Type="Self.CNTBSALDOCONTABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbRegDetalleCont" />
+            </Principal>
+            <Dependent Role="CNTBSALDOCONTABLE">
+              <PropertyRef Name="IdCntbRegDetalleCont" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SEGOPERAC__IdSeg__300424B4">
           <End Role="SEGMODULO" Type="Self.SEGMODULO" Multiplicity="0..1" />
           <End Role="SEGOPERACION" Type="Self.SEGOPERACION" Multiplicity="*" />
@@ -156,12 +245,28 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SISTEMAEMPRESAModelStoreContainer">
+          <EntitySet Name="CNTBPLANDECUENTA" EntityType="Self.CNTBPLANDECUENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CNTBREGCABECERACONT" EntityType="Self.CNTBREGCABECERACONT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CNTBREGDETALLECONT" EntityType="Self.CNTBREGDETALLECONT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CNTBSALDOCONTABLE" EntityType="Self.CNTBSALDOCONTABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGDEPARTAMENTO" EntityType="Self.SEGDEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGMODULO" EntityType="Self.SEGMODULO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGOPERACION" EntityType="Self.SEGOPERACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGROL" EntityType="Self.SEGROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGROLOPERACION" EntityType="Self.SEGROLOPERACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SEGUSUARIOSISTEMA" EntityType="Self.SEGUSUARIOSISTEMA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CNTBREGDE__IdCnt__5535A963" Association="Self.FK__CNTBREGDE__IdCnt__5535A963">
+            <End Role="CNTBREGCABECERACONT" EntitySet="CNTBREGCABECERACONT" />
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CNTBREGDE__IdCnt__5629CD9C" Association="Self.FK__CNTBREGDE__IdCnt__5629CD9C">
+            <End Role="CNTBPLANDECUENTA" EntitySet="CNTBPLANDECUENTA" />
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CNTBSALDO__IdCnt__5CD6CB2B" Association="Self.FK__CNTBSALDO__IdCnt__5CD6CB2B">
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+            <End Role="CNTBSALDOCONTABLE" EntitySet="CNTBSALDOCONTABLE" />
+          </AssociationSet>
           <AssociationSet Name="FK__SEGOPERAC__IdSeg__300424B4" Association="Self.FK__SEGOPERAC__IdSeg__300424B4">
             <End Role="SEGMODULO" EntitySet="SEGMODULO" />
             <End Role="SEGOPERACION" EntitySet="SEGOPERACION" />
@@ -384,7 +489,118 @@
             <End Role="SEGROL" EntitySet="SEGROL" />
             <End Role="SEGUSUARIOSISTEMA" EntitySet="SEGUSUARIOSISTEMA" />
           </AssociationSet>
+          <EntitySet Name="CNTBPLANDECUENTA" EntityType="SISTEMAEMPRESAModel.CNTBPLANDECUENTA" />
+          <EntitySet Name="CNTBREGCABECERACONT" EntityType="SISTEMAEMPRESAModel.CNTBREGCABECERACONT" />
+          <EntitySet Name="CNTBREGDETALLECONT" EntityType="SISTEMAEMPRESAModel.CNTBREGDETALLECONT" />
+          <EntitySet Name="CNTBSALDOCONTABLE" EntityType="SISTEMAEMPRESAModel.CNTBSALDOCONTABLE" />
+          <AssociationSet Name="FK__CNTBREGDE__IdCnt__5629CD9C" Association="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5629CD9C">
+            <End Role="CNTBPLANDECUENTA" EntitySet="CNTBPLANDECUENTA" />
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CNTBREGDE__IdCnt__5535A963" Association="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5535A963">
+            <End Role="CNTBREGCABECERACONT" EntitySet="CNTBREGCABECERACONT" />
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CNTBSALDO__IdCnt__5CD6CB2B" Association="SISTEMAEMPRESAModel.FK__CNTBSALDO__IdCnt__5CD6CB2B">
+            <End Role="CNTBREGDETALLECONT" EntitySet="CNTBREGDETALLECONT" />
+            <End Role="CNTBSALDOCONTABLE" EntitySet="CNTBSALDOCONTABLE" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CNTBPLANDECUENTA">
+          <Key>
+            <PropertyRef Name="IdCntbPlanDeCuenta" />
+          </Key>
+          <Property Name="IdCntbPlanDeCuenta" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int16" Nullable="false" />
+          <Property Name="detalle" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="naturaleza" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CNTBREGDETALLECONT" Relationship="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5629CD9C" FromRole="CNTBPLANDECUENTA" ToRole="CNTBREGDETALLECONT" />
+        </EntityType>
+        <EntityType Name="CNTBREGCABECERACONT">
+          <Key>
+            <PropertyRef Name="IdCntbRegCabeceraCont" />
+          </Key>
+          <Property Name="IdCntbRegCabeceraCont" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int16" Nullable="false" />
+          <Property Name="NombreLote" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TotalDebe" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="TotalHaber" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="EstadoContable" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="observacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioSistema" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CNTBREGDETALLECONT" Relationship="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5535A963" FromRole="CNTBREGCABECERACONT" ToRole="CNTBREGDETALLECONT" />
+        </EntityType>
+        <EntityType Name="CNTBREGDETALLECONT">
+          <Key>
+            <PropertyRef Name="IdCntbRegDetalleCont" />
+          </Key>
+          <Property Name="IdCntbRegDetalleCont" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="periodo" Type="Int16" Nullable="false" />
+          <Property Name="IdCntbRegCabeceraCont" Type="Int32" />
+          <Property Name="SecuenciaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="IdCntbPlanDeCuenta" Type="Int32" />
+          <Property Name="GlosaContable" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaContable" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="afectacion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="monto" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioSistema" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CNTBPLANDECUENTA" Relationship="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5629CD9C" FromRole="CNTBREGDETALLECONT" ToRole="CNTBPLANDECUENTA" />
+          <NavigationProperty Name="CNTBREGCABECERACONT" Relationship="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5535A963" FromRole="CNTBREGDETALLECONT" ToRole="CNTBREGCABECERACONT" />
+          <NavigationProperty Name="CNTBSALDOCONTABLE" Relationship="SISTEMAEMPRESAModel.FK__CNTBSALDO__IdCnt__5CD6CB2B" FromRole="CNTBREGDETALLECONT" ToRole="CNTBSALDOCONTABLE" />
+        </EntityType>
+        <EntityType Name="CNTBSALDOCONTABLE">
+          <Key>
+            <PropertyRef Name="IdCntbSaldoContable" />
+          </Key>
+          <Property Name="IdCntbSaldoContable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCntbRegDetalleCont" Type="Int32" />
+          <Property Name="periodo" Type="Int16" Nullable="false" />
+          <Property Name="NumeroLote" Type="Int32" Nullable="false" />
+          <Property Name="CuentaContable" Type="Int32" Nullable="false" />
+          <Property Name="SaldoContableDebe" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="SaldoContableHaber" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CNTBREGDETALLECONT" Relationship="SISTEMAEMPRESAModel.FK__CNTBSALDO__IdCnt__5CD6CB2B" FromRole="CNTBSALDOCONTABLE" ToRole="CNTBREGDETALLECONT" />
+        </EntityType>
+        <Association Name="FK__CNTBREGDE__IdCnt__5629CD9C">
+          <End Type="SISTEMAEMPRESAModel.CNTBPLANDECUENTA" Role="CNTBPLANDECUENTA" Multiplicity="0..1" />
+          <End Type="SISTEMAEMPRESAModel.CNTBREGDETALLECONT" Role="CNTBREGDETALLECONT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBPLANDECUENTA">
+              <PropertyRef Name="IdCntbPlanDeCuenta" />
+            </Principal>
+            <Dependent Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbPlanDeCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CNTBREGDE__IdCnt__5535A963">
+          <End Type="SISTEMAEMPRESAModel.CNTBREGCABECERACONT" Role="CNTBREGCABECERACONT" Multiplicity="0..1" />
+          <End Type="SISTEMAEMPRESAModel.CNTBREGDETALLECONT" Role="CNTBREGDETALLECONT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBREGCABECERACONT">
+              <PropertyRef Name="IdCntbRegCabeceraCont" />
+            </Principal>
+            <Dependent Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbRegCabeceraCont" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CNTBSALDO__IdCnt__5CD6CB2B">
+          <End Type="SISTEMAEMPRESAModel.CNTBREGDETALLECONT" Role="CNTBREGDETALLECONT" Multiplicity="0..1" />
+          <End Type="SISTEMAEMPRESAModel.CNTBSALDOCONTABLE" Role="CNTBSALDOCONTABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CNTBREGDETALLECONT">
+              <PropertyRef Name="IdCntbRegDetalleCont" />
+            </Principal>
+            <Dependent Role="CNTBSALDOCONTABLE">
+              <PropertyRef Name="IdCntbRegDetalleCont" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -472,6 +688,63 @@
                 <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CNTBPLANDECUENTA">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.CNTBPLANDECUENTA">
+              <MappingFragment StoreEntitySet="CNTBPLANDECUENTA">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="naturaleza" ColumnName="naturaleza" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="IdCntbPlanDeCuenta" ColumnName="IdCntbPlanDeCuenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CNTBREGCABECERACONT">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.CNTBREGCABECERACONT">
+              <MappingFragment StoreEntitySet="CNTBREGCABECERACONT">
+                <ScalarProperty Name="UsuarioSistema" ColumnName="UsuarioSistema" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="EstadoContable" ColumnName="EstadoContable" />
+                <ScalarProperty Name="TotalHaber" ColumnName="TotalHaber" />
+                <ScalarProperty Name="TotalDebe" ColumnName="TotalDebe" />
+                <ScalarProperty Name="NombreLote" ColumnName="NombreLote" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="IdCntbRegCabeceraCont" ColumnName="IdCntbRegCabeceraCont" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CNTBREGDETALLECONT">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.CNTBREGDETALLECONT">
+              <MappingFragment StoreEntitySet="CNTBREGDETALLECONT">
+                <ScalarProperty Name="UsuarioSistema" ColumnName="UsuarioSistema" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="afectacion" ColumnName="afectacion" />
+                <ScalarProperty Name="FechaContable" ColumnName="FechaContable" />
+                <ScalarProperty Name="GlosaContable" ColumnName="GlosaContable" />
+                <ScalarProperty Name="IdCntbPlanDeCuenta" ColumnName="IdCntbPlanDeCuenta" />
+                <ScalarProperty Name="SecuenciaDetalle" ColumnName="SecuenciaDetalle" />
+                <ScalarProperty Name="IdCntbRegCabeceraCont" ColumnName="IdCntbRegCabeceraCont" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="IdCntbRegDetalleCont" ColumnName="IdCntbRegDetalleCont" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CNTBSALDOCONTABLE">
+            <EntityTypeMapping TypeName="SISTEMAEMPRESAModel.CNTBSALDOCONTABLE">
+              <MappingFragment StoreEntitySet="CNTBSALDOCONTABLE">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="SaldoContableHaber" ColumnName="SaldoContableHaber" />
+                <ScalarProperty Name="SaldoContableDebe" ColumnName="SaldoContableDebe" />
+                <ScalarProperty Name="CuentaContable" ColumnName="CuentaContable" />
+                <ScalarProperty Name="NumeroLote" ColumnName="NumeroLote" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="IdCntbRegDetalleCont" ColumnName="IdCntbRegDetalleCont" />
+                <ScalarProperty Name="IdCntbSaldoContable" ColumnName="IdCntbSaldoContable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModContabilidadController.cs" />
     <Compile Include="Controllers\SEGDEPARTAMENTOesController.cs" />
     <Compile Include="Controllers\SEGMODULOesController.cs" />
     <Compile Include="Controllers\SEGOPERACIONsController.cs" />
@@ -140,6 +141,18 @@
     <Compile Include="Filters\VerificaSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CNTBPLANDECUENTA.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CNTBREGCABECERACONT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CNTBREGDETALLECONT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CNTBSALDOCONTABLE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -181,6 +194,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -263,6 +277,8 @@
     <Content Include="Views\SEGROLOPERACIONs\Details.cshtml" />
     <Content Include="Views\SEGROLOPERACIONs\Edit.cshtml" />
     <Content Include="Views\SEGROLOPERACIONs\Index.cshtml" />
+    <Content Include="Views\ModContabilidad\Index.cshtml" />
+    <Content Include="Views\Shared\_ModContabilidadLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

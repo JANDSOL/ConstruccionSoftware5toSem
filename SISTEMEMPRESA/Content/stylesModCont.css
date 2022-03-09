@@ -1,0 +1,8 @@
+﻿.button-modcont {
+    display: flex;
+    flex-direction: column;
+}
+.btn.mod-cont {
+    margin-bottom: 10px;
+}
+

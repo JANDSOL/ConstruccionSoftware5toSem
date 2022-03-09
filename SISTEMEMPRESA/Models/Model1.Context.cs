@@ -31,5 +31,9 @@ namespace SISTEMEMPRESA.Models
         public virtual DbSet<SEGROL> SEGROL { get; set; }
         public virtual DbSet<SEGROLOPERACION> SEGROLOPERACION { get; set; }
         public virtual DbSet<SEGUSUARIOSISTEMA> SEGUSUARIOSISTEMA { get; set; }
+        public virtual DbSet<CNTBPLANDECUENTA> CNTBPLANDECUENTA { get; set; }
+        public virtual DbSet<CNTBREGCABECERACONT> CNTBREGCABECERACONT { get; set; }
+        public virtual DbSet<CNTBREGDETALLECONT> CNTBREGDETALLECONT { get; set; }
+        public virtual DbSet<CNTBSALDOCONTABLE> CNTBSALDOCONTABLE { get; set; }
     }
 }

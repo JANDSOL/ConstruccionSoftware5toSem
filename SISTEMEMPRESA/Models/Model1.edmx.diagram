@@ -17,6 +17,13 @@
         <AssociationConnector Association="SISTEMAEMPRESAModel.FK__SEGROLOPE__IdSeg__32E0915F" ManuallyRouted="false" />
         <AssociationConnector Association="SISTEMAEMPRESAModel.FK__SEGROLOPE__IdSeg__31EC6D26" ManuallyRouted="false" />
         <AssociationConnector Association="SISTEMAEMPRESAModel.FK__SEGUSUARI__IdSeg__29572725" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SISTEMAEMPRESAModel.CNTBPLANDECUENTA" Width="1.5" PointX="7.375" PointY="1.75" />
+        <EntityTypeShape EntityType="SISTEMAEMPRESAModel.CNTBREGCABECERACONT" Width="1.5" PointX="7.375" PointY="10.375" />
+        <EntityTypeShape EntityType="SISTEMAEMPRESAModel.CNTBREGDETALLECONT" Width="1.5" PointX="9.625" PointY="1" />
+        <EntityTypeShape EntityType="SISTEMAEMPRESAModel.CNTBSALDOCONTABLE" Width="1.5" PointX="11.875" PointY="1.5" />
+        <AssociationConnector Association="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5629CD9C" />
+        <AssociationConnector Association="SISTEMAEMPRESAModel.FK__CNTBREGDE__IdCnt__5535A963" />
+        <AssociationConnector Association="SISTEMAEMPRESAModel.FK__CNTBSALDO__IdCnt__5CD6CB2B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
