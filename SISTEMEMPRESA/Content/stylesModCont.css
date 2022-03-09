@@ -1,8 +1,28 @@
-﻿.button-modcont {
+﻿@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+}
+
+.button-modcont {
+    margin-top: 40px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .btn.mod-cont {
-    margin-bottom: 10px;
+    margin: 8px;
+    width: 40%;
+    height: 200px;
+    background: #000000;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    transition-duration: 0.4s;
+}
+.btn.mod-cont:hover {
+    background-color: #ffffff;
+    color: #000000;
 }
 

@@ -7,6 +7,8 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/defaultsStyles.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/stylesModCont.css")" rel="stylesheet" type="text/css" />
 </head>
 <body style="background-color:aliceblue;">
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:black;">
@@ -21,7 +23,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Salir", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Salir", "Index", "Home")</li>*@
+                    <li>@Html.ActionLink("Plan De Cuentas", "Index", "PlanDeCuentas")</li>
                 </ul>
             </div>
         </div>
@@ -38,5 +41,19 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        document.getElementById("btnPlanDeCuentas").onclick = () => {
+            location.href = "/PlanDeCuentas";
+        };
+        document.getElementById("btnRegistrosAsientos").onclick = () => {
+            location.href = "/PlanDeCuentas";
+        };
+        document.getElementById("btnSaldosContables").onclick = () => {
+            location.href = "/PlanDeCuentas";
+        };
+        document.getElementById("btnAuditorias").onclick = () => {
+            location.href = "/PlanDeCuentas";
+        };
+    </script>
 </body>
 </html>

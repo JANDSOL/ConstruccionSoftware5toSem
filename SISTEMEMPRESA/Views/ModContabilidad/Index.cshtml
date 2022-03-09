@@ -3,26 +3,13 @@
     Layout = "~/Views/Shared/_ModContabilidadLayout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/stylesModCont.css")" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div style="background-color: midnightblue">
-        <h2 style=" text-align:center; color:whitesmoke; font-family:courier">@ViewBag.Title</h2>
-    </div>
-    <div class="button-modcont">
-        <button type="button" class="btn mod-cont">PLAN DE CUENTAS</button>
-        <button type="button" class="btn mod-cont">REGISTROS ASIENTOS CONTABLES</button>
-        <button type="button" class="btn mod-cont">SALDOS CONTABLES</button>
-        <button type="button" class="btn mod-cont">AUDITORIAS</button>
-    </div>
-</body>
-</html>
-
-
+<div style="background-color: midnightblue">
+    <h2 style=" text-align:center; color:whitesmoke; font-family:courier">@ViewBag.Title</h2>
+</div>
+<div class="button-modcont">
+    <button id="btnPlanDeCuentas" class="btn mod-cont">PLAN DE CUENTAS</button>
+    <button id="btnRegistrosAsientos" class="btn mod-cont">REGISTROS ASIENTOS CONTABLES</button>
+    <button id="btnSaldosContables" class="btn mod-cont">SALDOS CONTABLES</button>
+    <button id="btnAuditorias" class="btn mod-cont">AUDITORIAS</button>
+</div>
+<div class="salir">- @Html.ActionLink("SALIR", "Index", "Home")</div>

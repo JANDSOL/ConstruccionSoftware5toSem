@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModContabilidadController.cs" />
+    <Compile Include="Controllers\PlanDeCuentasController.cs" />
     <Compile Include="Controllers\SEGDEPARTAMENTOesController.cs" />
     <Compile Include="Controllers\SEGMODULOesController.cs" />
     <Compile Include="Controllers\SEGOPERACIONsController.cs" />
@@ -194,7 +195,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\defaultsStyles.css" />
+    <Content Include="Content\stylesModCont.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -279,6 +281,7 @@
     <Content Include="Views\SEGROLOPERACIONs\Index.cshtml" />
     <Content Include="Views\ModContabilidad\Index.cshtml" />
     <Content Include="Views\Shared\_ModContabilidadLayout.cshtml" />
+    <Content Include="Views\PlanDeCuentas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

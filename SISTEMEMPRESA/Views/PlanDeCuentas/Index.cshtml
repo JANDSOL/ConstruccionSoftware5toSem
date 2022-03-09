@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SISTEMEMPRESA.Models.CNTBPLANDECUENTA>
+
+@{
+    ViewBag.Title = "Plan De Cuentas";
+    Layout = "~/Views/Shared/_ModContabilidadLayout.cshtml";
+}
+
+<h2>Plan De Cuentas</h2>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.)*@
+            <p>Codigo Cuenta</p>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.estado)*@
+            <p>Periodo</p>
+        </th>
+        <th>
+            <p>Detalle</p>
+        </th>
+        <th>
+            <p>Naturaleza</p>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCntbPlanDeCuenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.periodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.detalle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.naturaleza)
+            </td>
+        </tr>
+    }
+</table>
+<div class="salir">- @Html.ActionLink("SALIR", "Index", "ModContabilidad")</div>

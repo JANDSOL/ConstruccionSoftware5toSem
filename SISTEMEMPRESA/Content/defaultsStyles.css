@@ -1,0 +1,12 @@
+﻿.salir {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: right;
+}
+.salir a {
+    color: #2FA4FF;
+    text-decoration: none;
+}
+.salir a:hover {
+    font-weight: 600;
+}
